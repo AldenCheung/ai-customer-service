@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+langchain4j:
+  zhipu-ai:
+    api-key: ${ZHIPU_API_KEY:eaf9c60c11674d7b8b8c54927f00498a.mh6U60tQmrBgNZho}
+    chat-model:
+      model-name: glm-4-flash
+      temperature: 0.7
+      max-tokens: 2048
+    streaming-chat-model:
+      model-name: glm-4-flash
+      temperature: 0.7
+      max-tokens: 2048
+
+app:
+  knowledge:
+    path: classpath:knowledge/
+  rag:
+    max-results: 3
+    min-score: 0.5
+    chunk-size: 300
+    chunk-overlap: 30
+  chat:
+    memory-max-messages: 20
+    sse-timeout: 300000
