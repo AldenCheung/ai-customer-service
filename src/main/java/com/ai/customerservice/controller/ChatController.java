@@ -27,7 +27,8 @@ public class ChatController {
     @GetMapping(value = "/chat/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter chatStream(
             @RequestParam String message,
-            @RequestParam(required = false) String sessionId) {
+            @RequestParam(required = false) String sessionId,
+            @RequestParam(required = false) String model) {
         ChatRequest request = new ChatRequest(message, sessionId);
         return chatService.chatStream(request);
     }
