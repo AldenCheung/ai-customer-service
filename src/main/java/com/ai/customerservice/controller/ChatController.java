@@ -24,6 +24,7 @@ public class ChatController {
         return chatService.chat(request);
     }
 
+    //对话接口
     @GetMapping(value = "/chat/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter chatStream(
             @RequestParam String message,
