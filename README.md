@@ -3,3 +3,9 @@ Springboot+Langchain4j实现的智能客服，可维护本地知识库(.txt\.md)
 --20260406
 
 可选模型：GLM、Qwen、DeepSeek
+--20260417
+
+运行环境为Java17，已在本地docker环境部署成功
+<img width="1419" height="857" alt="截屏2026-04-24 16 53 34" src="https://github.com/user-attachments/assets/0d2cadf4-8376-4c47-ac3d-2886a66aeb43" />
+
+--20260423
