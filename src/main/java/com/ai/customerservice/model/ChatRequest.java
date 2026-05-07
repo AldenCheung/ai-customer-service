@@ -4,6 +4,7 @@ public class ChatRequest {
 
     private String message;
     private String sessionId;
+    private String model;
 
     public ChatRequest() {
     }
@@ -27,5 +28,13 @@ public class ChatRequest {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }

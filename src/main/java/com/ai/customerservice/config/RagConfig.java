@@ -2,6 +2,7 @@ package com.ai.customerservice.config;
 
 import com.ai.customerservice.service.CustomerServiceAgent;
 import com.ai.customerservice.service.tool.CalculatorService;
+import com.ai.customerservice.service.tool.OrderQueryService;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -49,12 +50,12 @@ public class RagConfig {
             ChatLanguageModel chatLanguageModel,
             StreamingChatLanguageModel streamingChatLanguageModel,
             EmbeddingStoreContentRetriever contentRetriever,
-            CalculatorService calculatorService) {
+            CalculatorService calculatorService, OrderQueryService orderQueryService) {
         return AiServices.builder(CustomerServiceAgent.class)
                 .chatLanguageModel(chatLanguageModel)
                 .streamingChatLanguageModel(streamingChatLanguageModel)
                 .contentRetriever(contentRetriever)
-                .tools(calculatorService)
+                .tools(calculatorService, orderQueryService)
                 .chatMemoryProvider(memoryId ->
                         MessageWindowChatMemory.withMaxMessages(memoryMaxMessages))
                 .build();

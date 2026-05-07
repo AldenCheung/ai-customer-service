@@ -15,6 +15,7 @@ public interface CustomerServiceAgent {
             4. 如果知识库中没有相关信息，请如实告知用户，并建议联系人工客服。
             5. 保持友好、专业的语气。
             6. 如果用户的问题不清楚，请礼貌地要求用户提供更多信息。
+            7. 如果用户查询订单状态为已发货，调用queryOrderLogistics方法
             """)
     String chat(@MemoryId String sessionId, @UserMessage String userMessage);
 

@@ -413,7 +413,7 @@
             isStreaming = !enabled;
         }
 
-        function sendMessage() {
+        async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message || isStreaming) return;
 
@@ -424,50 +424,34 @@
 
             const typingDiv = addTypingIndicator();
 
-            const encodedMessage = encodeURIComponent(message);
-            const encodedSessionId = encodeURIComponent(sessionId);
-            const selectedModel = encodeURIComponent(modelSelect.value);
-            const url = `/api/chat/stream?message=${encodedMessage}&sessionId=${encodedSessionId}&model=${selectedModel}`;
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        sessionId: sessionId,
+                        model: modelSelect.value
+                    })
+                });
 
-            const eventSource = new EventSource(url);
-            let responseText = '';
-            let firstToken = true;
-
-            eventSource.onmessage = function (event) {
-                const data = event.data;
-
-                if (data === '[DONE]') {
-                    eventSource.close();
-                    setInputEnabled(true);
-                    messageInput.focus();
-                    return;
+                if (!response.ok) {
+                    throw new Error('Request failed: ' + response.status);
                 }
 
-                if (firstToken) {
-                    const bubble = typingDiv.querySelector('.bubble');
-                    bubble.innerHTML = '';
-                    firstToken = false;
-                    typingDiv.removeAttribute('id');
-                }
-
-                responseText += data;
+                const data = await response.json();
                 const bubble = typingDiv.querySelector('.bubble');
-                bubble.textContent = responseText;
-                scrollToBottom();
-            };
-
-            eventSource.onerror = function () {
-                eventSource.close();
-
-                if (firstToken) {
-                    const bubble = typingDiv.querySelector('.bubble');
-                    bubble.textContent = '抱歉，连接出现问题，请稍后重试。';
-                    typingDiv.removeAttribute('id');
-                }
-
+                bubble.textContent = data.answer;
+                typingDiv.removeAttribute('id');
+            } catch (e) {
+                const bubble = typingDiv.querySelector('.bubble');
+                bubble.textContent = '抱歉，连接出现问题，请稍后重试。';
+                typingDiv.removeAttribute('id');
+            } finally {
                 setInputEnabled(true);
                 messageInput.focus();
-            };
+                scrollToBottom();
+            }
         }
     </script>
 </body>
