@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/Users/alden/code/ai-customer-service/mvnw -q -f /Users/alden/code/ai-customer-service/pom.xml -DskipTests compile)"
+    ]
+  }
+}

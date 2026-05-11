@@ -42,6 +42,67 @@
             gap: 12px;
         }
 
+        .info-btn {
+            position: relative;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 14px;
+            font-style: italic;
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 600;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .info-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .info-btn .info-tooltip {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: #2c2c2c;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-style: normal;
+            font-family: inherit;
+            font-weight: normal;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-4px);
+            transition: opacity 0.18s, transform 0.18s;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
+
+        .info-btn .info-tooltip::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 10px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #2c2c2c;
+        }
+
+        .info-btn:hover .info-tooltip,
+        .info-btn:focus .info-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .chat-header .header-left {
             display: flex;
             align-items: center;
@@ -297,6 +358,48 @@
                 max-width: 90%;
             }
         }
+
+                /* 按钮样式 */
+        .info-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #409eff;
+            color: white;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 提示文字 默认隐藏 */
+        .info-btn .tooltip {
+            visibility: hidden;
+            width: 280px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 4px;
+            padding: 6px 0px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 10px;
+            white-space: normal;
+        }
+
+        /* 鼠标悬停 显示提示 */
+        .info-btn:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -305,15 +408,18 @@
             <div class="header-left">
                 <div class="avatar">&#129302;</div>
                 <div>
-                    <div class="title">智慧商城客服</div>
+                    <div class="title">智慧商城客服(by ZHANG ZHENYU)</div>
                     <div class="subtitle">AI 智能助手 | 随时为您服务</div>
                 </div>
             </div>
+            <button class="info-btn">i
+                <span class="tooltip">与我联系：zhenyuzh@outlook.com</span>
+            </button>
             <select id="modelSelect" class="model-select">
                 <option value="glm-4-flash">GLM</option>
-                <option value="deepseek-chat">DeepSeek</option>
-                <option value="qwen-turbo">Qwen</option>
+                <option value="qwen-turbo">Qwen(待接入)</option>
             </select>
+            <button id="logoutBtn" onclick="logout()" style="margin-left:12px;padding:6px 12px;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;border-radius:6px;cursor:pointer;font-size:13px;">退出</button>
         </div>
 
         <div class="chat-messages" id="chatMessages">
@@ -337,8 +443,17 @@
     </div>
 
     <script>
-        const sessionId = crypto.randomUUID();
+<!--        const sessionId = crypto.randomUUID();-->
+        // 降级方案：若crypto API不可用，生成随机ID
+const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
         let isStreaming = false;
+
+        async function logout() {
+            try {
+                await fetch('/api/auth/logout', { method: 'POST' });
+            } catch (e) {}
+            window.location.href = '/login.html';
+        }
 
         const messagesContainer = document.getElementById('chatMessages');
         const messageInput = document.getElementById('messageInput');
