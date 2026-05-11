@@ -9,7 +9,9 @@ Springboot+Langchain4j实现的智能客服，可维护本地知识库(.txt\.md)
 <img width="1419" height="857" alt="截屏2026-04-24 16 53 34" src="https://github.com/user-attachments/assets/0d2cadf4-8376-4c47-ac3d-2886a66aeb43" />
 
 --20260423
+
 成功部署至腾讯云，机器配置：1* 2c2g(香港)
 --20260507
+
 支持用户登录鉴权
 --20260510
