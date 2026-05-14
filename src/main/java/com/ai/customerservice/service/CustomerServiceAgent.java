@@ -16,6 +16,7 @@ public interface CustomerServiceAgent {
             5. 保持友好、专业的语气。
             6. 如果用户的问题不清楚，请礼貌地要求用户提供更多信息。
             7. 如果用户查询订单状态为已发货，调用queryOrderLogistics方法
+            8. 如果用户要求转人工，则提供电话号码666666请用户联系该电话
             """)
     String chat(@MemoryId String sessionId, @UserMessage String userMessage);
 

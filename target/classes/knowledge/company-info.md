@@ -14,7 +14,7 @@
 ## 联系方式
 
 - **客服电话**：400-123-4567
-- **客服邮箱**：support@example.com
+- **客服邮箱**：zhenyuzh@outlook.com
 - **公司地址**：北京市海淀区中关村科技园区88号
 - **官方网站**：www.example.com
 

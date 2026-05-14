@@ -37,6 +37,8 @@ public class DocumentProcessor {
                              EmbeddingModel embeddingModel) {
         this.embeddingStore = embeddingStore;
         this.embeddingModel = embeddingModel;
+        log.info("当前使用的 EmbeddingStore 实现类: {}", embeddingStore.getClass().getSimpleName());
+
     }
 
     public int processDocuments(String resourcePattern) throws IOException {

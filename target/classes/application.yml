@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 langchain4j:
   zhipu-ai:
@@ -29,6 +29,9 @@ app:
     min-score: 0.5
     chunk-size: 300
     chunk-overlap: 30
+    chroma:
+      url: http://localhost:8000 # Chroma 服务地址
+      collection-name: customer_service_db # 集合名称（类似数据库的表名）
   chat:
     memory-max-messages: 20
     sse-timeout: 300000
