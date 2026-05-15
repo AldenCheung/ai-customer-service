@@ -254,6 +254,47 @@
             40% { transform: scale(1); opacity: 1; }
         }
 
+        .resolve-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .resolve-actions button {
+            padding: 4px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid;
+            transition: all 0.2s;
+        }
+
+        .resolve-btn-resolved {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+        }
+
+        .resolve-btn-resolved:hover {
+            background: #c8e6c9;
+        }
+
+        .resolve-btn-unresolved {
+            background: #fff3e0;
+            color: #e65100;
+            border-color: #ffcc80;
+        }
+
+        .resolve-btn-unresolved:hover {
+            background: #ffe0b2;
+        }
+
+        .resolve-feedback {
+            font-size: 12px;
+            color: #2e7d32;
+            margin-top: 6px;
+        }
+
         .chat-input-area {
             padding: 16px 20px;
             border-top: 1px solid #e8eaed;
@@ -477,8 +518,62 @@ const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toStri
             sendMessage();
         }
 
+        function removePreviousResolveButtons() {
+            const prev = messagesContainer.querySelectorAll('.resolve-actions');
+            prev.forEach(el => el.remove());
+            const prevFeedback = messagesContainer.querySelectorAll('.resolve-feedback');
+            prevFeedback.forEach(el => el.remove());
+        }
+
+        function addResolveButtons(aiMessageDiv) {
+            removePreviousResolveButtons();
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'resolve-actions';
+
+            const resolvedBtn = document.createElement('button');
+            resolvedBtn.className = 'resolve-btn-resolved';
+            resolvedBtn.textContent = '✓ 已解决';
+            resolvedBtn.onclick = () => markResolved(aiMessageDiv, actionsDiv);
+
+            const unresolvedBtn = document.createElement('button');
+            unresolvedBtn.className = 'resolve-btn-unresolved';
+            unresolvedBtn.textContent = '✗ 未解决';
+            unresolvedBtn.onclick = () => markUnresolved(actionsDiv);
+
+            actionsDiv.appendChild(resolvedBtn);
+            actionsDiv.appendChild(unresolvedBtn);
+
+            const bubble = aiMessageDiv.querySelector('.bubble');
+            bubble.appendChild(actionsDiv);
+            scrollToBottom();
+        }
+
+        async function markResolved(aiMessageDiv, actionsDiv) {
+            actionsDiv.remove();
+            const feedback = document.createElement('div');
+            feedback.className = 'resolve-feedback';
+            feedback.textContent = '✓ 感谢您的反馈，问题已标记为已解决';
+            const bubble = aiMessageDiv.querySelector('.bubble');
+            bubble.appendChild(feedback);
+
+            try {
+                await fetch('/api/chat-history/resolve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sessionId: sessionId })
+                });
+            } catch (e) {
+                console.error('Failed to mark resolved', e);
+            }
+            scrollToBottom();
+        }
+
+        function markUnresolved(actionsDiv) {
+            actionsDiv.remove();
+        }
+
         function addMessage(content, type) {
-            // Remove welcome message if present
             const welcome = messagesContainer.querySelector('.welcome-message');
             if (welcome) welcome.remove();
 
@@ -532,6 +627,8 @@ const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toStri
             const message = messageInput.value.trim();
             if (!message || isStreaming) return;
 
+            removePreviousResolveButtons();
+
             addMessage(message, 'user');
             messageInput.value = '';
             messageInput.style.height = 'auto';
@@ -558,6 +655,8 @@ const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toStri
                 const bubble = typingDiv.querySelector('.bubble');
                 bubble.textContent = data.answer;
                 typingDiv.removeAttribute('id');
+
+                addResolveButtons(typingDiv);
             } catch (e) {
                 const bubble = typingDiv.querySelector('.bubble');
                 bubble.textContent = '抱歉，连接出现问题，请稍后重试。';
