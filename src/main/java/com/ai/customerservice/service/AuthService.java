@@ -1,26 +1,30 @@
 package com.ai.customerservice.service;
 
 import com.ai.customerservice.config.AuthProperties;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AuthService {
 
     public static final String COOKIE_NAME = "AUTH_TOKEN";
-    public static final int COOKIE_MAX_AGE_SECONDS = 7 * 24 * 60 * 60;
+    public static final int COOKIE_MAX_AGE_SECONDS = 60 * 60;
 
     private final AuthProperties authProperties;
-    private final Map<String, String> tokenToUsername = new ConcurrentHashMap<>();
+    private final Cache<String, String> tokenCache;
     private final SecureRandom random = new SecureRandom();
 
     public AuthService(AuthProperties authProperties) {
         this.authProperties = authProperties;
+        this.tokenCache = CacheBuilder.newBuilder()
+                .expireAfterWrite(COOKIE_MAX_AGE_SECONDS, TimeUnit.SECONDS)
+                .build();
     }
 
     public Optional<String> login(String username, String password) {
@@ -33,7 +37,7 @@ public class AuthService {
             return Optional.empty();
         }
         String token = generateToken();
-        tokenToUsername.put(token, username);
+        tokenCache.put(token, username);
         return Optional.of(token);
     }
 
@@ -41,12 +45,12 @@ public class AuthService {
         if (token == null || token.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.ofNullable(tokenToUsername.get(token));
+        return Optional.ofNullable(tokenCache.getIfPresent(token));
     }
 
     public void logout(String token) {
         if (token != null) {
-            tokenToUsername.remove(token);
+            tokenCache.invalidate(token);
         }
     }
 
