@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -114,5 +116,49 @@ public class ChatHistoryDao {
         String sql = "SELECT COUNT(*) FROM " + TABLE + " WHERE transferred_to_human = 1";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
         return count != null ? count : 0;
+    }
+
+    public Map<String, Object> findPage(int page, int size) {
+        return findPage(page, size, null, null);
+    }
+
+    public Map<String, Object> findPage(int page, int size, String username, String complaintStatus) {
+        int offset = (page - 1) * size;
+
+        StringBuilder countSql = new StringBuilder("SELECT COUNT(*) FROM " + TABLE + " WHERE 1=1");
+        StringBuilder querySql = new StringBuilder("SELECT * FROM " + TABLE + " WHERE 1=1");
+        List<Object> params = new java.util.ArrayList<>();
+
+        if (username != null && !username.isBlank()) {
+            countSql.append(" AND username = ?");
+            querySql.append(" AND username = ?");
+            params.add(username);
+        }
+        if (complaintStatus != null && !complaintStatus.isBlank()) {
+            countSql.append(" AND complaint_status = ?");
+            querySql.append(" AND complaint_status = ?");
+            params.add(complaintStatus);
+        }
+
+        Integer total = jdbcTemplate.queryForObject(countSql.toString(), Integer.class, params.toArray());
+        if (total == null) {
+            total = 0;
+        }
+        int totalPages = (int) Math.ceil((double) total / size);
+
+        querySql.append(" ORDER BY complaint_time DESC LIMIT ? OFFSET ?");
+        List<Object> queryParams = new java.util.ArrayList<>(params);
+        queryParams.add(size);
+        queryParams.add(offset);
+
+        List<ChatHistory> records = jdbcTemplate.query(querySql.toString(), ROW_MAPPER, queryParams.toArray());
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("records", records);
+        result.put("total", total);
+        result.put("page", page);
+        result.put("size", size);
+        result.put("totalPages", totalPages);
+        return result;
     }
 }

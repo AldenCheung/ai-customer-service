@@ -32,6 +32,19 @@ public class ChatHistoryController {
                         .body(Map.of("success", false, "error", "未找到该会话的客诉记录")));
     }
 
+    @GetMapping("/page")
+    public ResponseEntity<Map<String, Object>> page(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String complaintStatus) {
+        if (page < 1) page = 1;
+        if (size < 1 || size > 100) size = 10;
+        Map<String, Object> result = chatHistoryDao.findPage(page, size, username, complaintStatus);
+        result.put("success", true);
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("/status")
     public ResponseEntity<Map<String, Object>> getStatus(@RequestParam String sessionId) {
         if (sessionId == null || sessionId.isBlank()) {
