@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会话历史 - 智慧商城智能客服</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: orbFloat 10s ease-in-out infinite;
+        }
+
+        .bg-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #667eea, transparent 70%);
+            top: -150px;
+            right: -100px;
+        }
+
+        .bg-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #764ba2, transparent 70%);
+            bottom: -120px;
+            left: -80px;
+            animation-delay: -4s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(25px, -15px) scale(1.03); }
+            66% { transform: translate(-15px, 10px) scale(0.97); }
+        }
+
+        .page-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 20px;
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .page-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-header-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 2px 12px rgba(102, 126, 234, 0.35);
+        }
+
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 2px;
+        }
+
+        .back-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            flex-wrap: wrap;
+        }
+
+        .filter-bar label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            flex-shrink: 0;
+        }
+
+        .filter-input {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 13px;
+            color: #fff;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .filter-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-input:focus {
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+        }
+
+        .filter-select {
+            padding: 8px 30px 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-select option {
+            background: #2c2c3e;
+            color: #fff;
+        }
+
+        .filter-select:focus {
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+        }
+
+        .filter-btn:active {
+            transform: scale(0.97);
+        }
+
+        .filter-btn-reset {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn-reset:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        tbody td {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            white-space: nowrap;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-open {
+            background: rgba(255, 152, 0, 0.12);
+            color: #ffb74d;
+            border: 1px solid rgba(255, 152, 0, 0.2);
+        }
+
+        .status-closed {
+            background: rgba(76, 175, 80, 0.12);
+            color: #81c784;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-open .status-dot {
+            background: #ffb74d;
+        }
+
+        .status-closed .status-dot {
+            background: #81c784;
+        }
+
+        .transfer-yes {
+            color: #ef9a9a;
+        }
+
+        .transfer-no {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .page-btn {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover:not(:disabled):not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-ellipsis {
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+        }
+
+        .table-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        .mini-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #a78bfa;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            .page-container {
+                padding: 16px 12px;
+            }
+
+            .filter-bar {
+                padding: 16px;
+                gap: 8px;
+            }
+
+            .filter-input, .filter-select {
+                width: 100%;
+            }
+
+            thead th, tbody td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .page-header h1 {
+                font-size: 18px;
+            }
+
+            .pagination {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+
+    <div class="page-container">
+        <div class="page-header">
+            <div class="page-header-left">
+                <div class="page-header-icon">&#128203;</div>
+                <div>
+                    <h1>会话历史</h1>
+                    <p>查看和管理所有客诉会话记录</p>
+                </div>
+            </div>
+            <a href="/index.html" class="back-btn">&#8592; 返回客服</a>
+        </div>
+
+        <div class="glass-card">
+            <div class="filter-bar">
+                <label>用户名</label>
+                <input type="text" id="filterUsername" class="filter-input" placeholder="输入用户名搜索" />
+
+                <label>状态</label>
+                <select id="filterStatus" class="filter-select">
+                    <option value="">全部</option>
+                    <option value="未闭环">未闭环</option>
+                    <option value="已闭环">已闭环</option>
+                </select>
+
+                <button class="filter-btn" onclick="loadData(1)">查询</button>
+                <button class="filter-btn-reset" onclick="resetFilters()">重置</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>会话ID</th>
+                            <th>客诉时间</th>
+                            <th>状态</th>
+                            <th>转人工</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="paginationContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const pageSize = 10;
+
+        function getFilters() {
+            return {
+                username: document.getElementById('filterUsername').value.trim(),
+                complaintStatus: document.getElementById('filterStatus').value
+            };
+        }
+
+        function buildParams(page) {
+            const filters = getFilters();
+            const params = new URLSearchParams({ page, size: pageSize });
+            if (filters.username) params.set('username', filters.username);
+            if (filters.complaintStatus) params.set('complaintStatus', filters.complaintStatus);
+            return params.toString();
+        }
+
+        async function loadData(page) {
+            currentPage = page;
+            const tbody = document.getElementById('tableBody');
+            const paginationContainer = document.getElementById('paginationContainer');
+
+            tbody.innerHTML = `
+                <tr><td colspan="6">
+                    <div class="table-loading">
+                        <div class="mini-spinner"></div>
+                        加载中...
+                    </div>
+                </td></tr>
+            `;
+            paginationContainer.innerHTML = '';
+
+            try {
+                const resp = await fetch('/api/chat-history/page?' + buildParams(page));
+                if (resp.status === 401) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                const data = await resp.json();
+
+                if (!data.success) {
+                    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><p>请求失败，请稍后重试</p></div></td></tr>`;
+                    return;
+                }
+
+                const records = data.records || [];
+                const total = data.total || 0;
+                const totalPages = data.totalPages || 0;
+
+                if (records.length === 0) {
+                    tbody.innerHTML = `
+                        <tr><td colspan="6">
+                            <div class="empty-state">
+                                <div class="empty-icon">&#128196;</div>
+                                <p>暂无会话记录</p>
+                            </div>
+                        </td></tr>
+                    `;
+                    return;
+                }
+
+                tbody.innerHTML = records.map(r => `
+                    <tr>
+                        <td>${r.id}</td>
+                        <td>${escapeHtml(r.username || '')}</td>
+                        <td style="font-family:monospace;font-size:12px;color:rgba(255,255,255,0.5);">${escapeHtml(r.sessionId || '')}</td>
+                        <td>${formatTime(r.complaintTime)}</td>
+                        <td>
+                            <span class="status-badge ${r.complaintStatus === '已闭环' ? 'status-closed' : 'status-open'}">
+                                <span class="status-dot"></span>
+                                ${escapeHtml(r.complaintStatus || '')}
+                            </span>
+                        </td>
+                        <td class="${r.transferredToHuman ? 'transfer-yes' : 'transfer-no'}">
+                            ${r.transferredToHuman ? '&#10003; 是' : '&#10005; 否'}
+                        </td>
+                    </tr>
+                `).join('');
+
+                renderPagination(total, totalPages, page);
+
+            } catch (e) {
+                tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><p>网络错误，请稍后重试</p></div></td></tr>`;
+            }
+        }
+
+        function renderPagination(total, totalPages, current) {
+            const container = document.getElementById('paginationContainer');
+            if (totalPages <= 1) {
+                container.innerHTML = `
+                    <div class="pagination">
+                        <span class="pagination-info">共 ${total} 条记录</span>
+                        <div></div>
+                    </div>
+                `;
+                return;
+            }
+
+            const startRecord = (current - 1) * pageSize + 1;
+            const endRecord = Math.min(current * pageSize, total);
+
+            let pagesHtml = '';
+
+            pagesHtml += `<button class="page-btn" ${current <= 1 ? 'disabled' : ''} onclick="loadData(${current - 1})">&#8249;</button>`;
+
+            const pageNumbers = getPageNumbers(current, totalPages);
+            for (const p of pageNumbers) {
+                if (p === '...') {
+                    pagesHtml += `<span class="page-ellipsis">...</span>`;
+                } else {
+                    pagesHtml += `<button class="page-btn ${p === current ? 'active' : ''}" onclick="loadData(${p})">${p}</button>`;
+                }
+            }
+
+            pagesHtml += `<button class="page-btn" ${current >= totalPages ? 'disabled' : ''} onclick="loadData(${current + 1})">&#8250;</button>`;
+
+            container.innerHTML = `
+                <div class="pagination">
+                    <span class="pagination-info">第 ${startRecord}-${endRecord} 条，共 ${total} 条</span>
+                    <div class="pagination-controls">${pagesHtml}</div>
+                </div>
+            `;
+        }
+
+        function getPageNumbers(current, totalPages) {
+            if (totalPages <= 7) {
+                return Array.from({ length: totalPages }, (_, i) => i + 1);
+            }
+            const pages = [];
+            pages.push(1);
+            if (current > 3) pages.push('...');
+            const start = Math.max(2, current - 1);
+            const end = Math.min(totalPages - 1, current + 1);
+            for (let i = start; i <= end; i++) pages.push(i);
+            if (current < totalPages - 2) pages.push('...');
+            pages.push(totalPages);
+            return pages;
+        }
+
+        function resetFilters() {
+            document.getElementById('filterUsername').value = '';
+            document.getElementById('filterStatus').value = '';
+            loadData(1);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '-';
+            try {
+                const d = new Date(timeStr.replace(' ', 'T'));
+                if (isNaN(d.getTime())) return timeStr;
+                const pad = n => String(n).padStart(2, '0');
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            } catch {
+                return timeStr;
+            }
+        }
+
+        document.getElementById('filterUsername').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') loadData(1);
+        });
+
+        loadData(1);
+    </script>
+</body>
+</html>

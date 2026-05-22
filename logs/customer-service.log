@@ -1,0 +1,54 @@
+2026-05-22T17:13:35.112+08:00  INFO 73426 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 73426 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-22T17:13:35.113+08:00  INFO 73426 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-22T17:13:35.649+08:00  INFO 73426 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-22T17:13:35.656+08:00  INFO 73426 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-22T17:13:35.657+08:00  INFO 73426 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-22T17:13:35.695+08:00  INFO 73426 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-22T17:13:35.695+08:00  INFO 73426 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 557 ms
+2026-05-22T17:13:39.802+08:00  INFO 73426 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
+2026-05-22T17:13:39.890+08:00  INFO 73426 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
+2026-05-22T17:13:40.173+08:00  INFO 73426 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
+2026-05-22T17:13:40.195+08:00  INFO 73426 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-05-22T17:13:40.334+08:00  WARN 73426 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-05-22T17:13:40.343+08:00  INFO 73426 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-05-22T17:13:40.351+08:00 ERROR 73426 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-05-22T17:13:47.081+08:00  INFO 73455 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 73455 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-22T17:13:47.083+08:00  INFO 73455 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-22T17:13:47.661+08:00  INFO 73455 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-22T17:13:47.671+08:00  INFO 73455 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-22T17:13:47.671+08:00  INFO 73455 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-22T17:13:47.709+08:00  INFO 73455 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-22T17:13:47.709+08:00  INFO 73455 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 576 ms
+2026-05-22T17:13:49.510+08:00  INFO 73455 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
+2026-05-22T17:13:49.593+08:00  INFO 73455 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
+2026-05-22T17:13:49.875+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
+2026-05-22T17:13:49.897+08:00  INFO 73455 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-05-22T17:13:50.028+08:00  INFO 73455 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-05-22T17:13:50.033+08:00  INFO 73455 --- [main] c.a.c.AiCustomerServiceApplication       : Started AiCustomerServiceApplication in 3.238 seconds (process running for 3.487)
+2026-05-22T17:13:50.034+08:00  INFO 73455 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Initializing knowledge base from: classpath:knowledge/
+2026-05-22T17:13:50.036+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: company-info.md
+2026-05-22T17:13:50.036+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: product-faq.txt
+2026-05-22T17:13:50.205+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : Successfully ingested 2 documents into embedding store
+2026-05-22T17:13:50.205+08:00  INFO 73455 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Knowledge base initialized successfully. Loaded 2 documents.
+2026-05-22T17:14:16.750+08:00  INFO 73455 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-22T17:14:16.750+08:00  INFO 73455 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-22T17:14:16.755+08:00  INFO 73455 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2026-05-22T17:14:30.001+08:00  INFO 73455 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Chat request - sessionId: 63194473-630f-4d41-ba9e-48dd59e1267e, message: 你们的退款政策是什么？
+2026-05-22T17:14:30.020+08:00  INFO 73455 --- [http-nio-8081-exec-5] c.ai.customerservice.dal.ChatHistoryDao  : Inserted ChatHistory: ChatHistory{id=0, username='zhangzhenyu', sessionId='63194473-630f-4d41-ba9e-48dd59e1267e', complaintTime=2026-05-22T17:14:30.013238, complaintStatus='未闭环', transferredToHuman=false}
+2026-05-22T17:14:30.023+08:00  INFO 73455 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Created ChatHistory for session: 63194473-630f-4d41-ba9e-48dd59e1267e, username: zhangzhenyu
+2026-05-22T17:17:56.392+08:00  INFO 73455 --- [http-nio-8081-exec-10] c.ai.customerservice.dal.ChatHistoryDao  : Updated ChatHistory id=4 status to 已闭环
