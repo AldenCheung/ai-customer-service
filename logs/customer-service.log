@@ -1,54 +1,563 @@
-2026-05-22T17:13:35.112+08:00  INFO 73426 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 73426 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
-2026-05-22T17:13:35.113+08:00  INFO 73426 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
-2026-05-22T17:13:35.649+08:00  INFO 73426 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2026-05-22T17:13:35.656+08:00  INFO 73426 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-05-22T17:13:35.657+08:00  INFO 73426 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
-2026-05-22T17:13:35.695+08:00  INFO 73426 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-05-22T17:13:35.695+08:00  INFO 73426 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 557 ms
-2026-05-22T17:13:39.802+08:00  INFO 73426 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
-2026-05-22T17:13:39.890+08:00  INFO 73426 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
-2026-05-22T17:13:40.173+08:00  INFO 73426 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
-2026-05-22T17:13:40.195+08:00  INFO 73426 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-05-22T17:13:40.334+08:00  WARN 73426 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-2026-05-22T17:13:40.343+08:00  INFO 73426 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+2026-05-31T12:08:51.828+08:00  INFO 2627 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 2627 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-31T12:08:51.833+08:00  INFO 2627 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-31T12:08:52.401+08:00  INFO 2627 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-31T12:08:52.408+08:00  INFO 2627 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-31T12:08:52.409+08:00  INFO 2627 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-31T12:08:52.443+08:00  INFO 2627 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-31T12:08:52.444+08:00  INFO 2627 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 580 ms
+2026-05-31T12:08:52.644+08:00  WARN 2627 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'chatController' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/controller/ChatController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+2026-05-31T12:08:52.646+08:00  INFO 2627 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-05-31T12:08:52.657+08:00  INFO 2627 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-05-22T17:13:40.351+08:00 ERROR 73426 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+2026-05-31T12:08:52.666+08:00 ERROR 2627 --- [main] o.s.boot.SpringApplication               : Application run failed
 
-***************************
-APPLICATION FAILED TO START
-***************************
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'chatController' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/controller/ChatController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.ai.customerservice.AiCustomerServiceApplication.main(AiCustomerServiceApplication.java:10) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:485) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 75 common frames omitted
+Caused by: java.lang.RuntimeException: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at dev.langchain4j.store.embedding.chroma.ChromaClient.collection(ChromaClient.java:105) ~[langchain4j-chroma-0.36.2.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore.<init>(ChromaEmbeddingStore.java:61) ~[langchain4j-chroma-0.36.2.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore$Builder.build(ChromaEmbeddingStore.java:119) ~[langchain4j-chroma-0.36.2.jar:na]
+	at com.ai.customerservice.config.VectorStoreConfig.embeddingStore(VectorStoreConfig.java:27) ~[classes/:na]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$0.CGLIB$embeddingStore$0(<generated>) ~[classes/:na]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>) ~[classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258) ~[spring-core-6.1.14.jar:6.1.14]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348) ~[spring-context-6.1.14.jar:6.1.14]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$0.embeddingStore(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 76 common frames omitted
+Caused by: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:297) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaResponseLoggingInterceptor.intercept(ChromaResponseLoggingInterceptor.java:20) ~[langchain4j-chroma-0.36.2.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaRequestLoggingInterceptor.intercept(ChromaRequestLoggingInterceptor.java:21) ~[langchain4j-chroma-0.36.2.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154) ~[okhttp-4.12.0.jar:na]
+	at retrofit2.OkHttpCall.execute(OkHttpCall.java:204) ~[retrofit-2.9.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaClient.collection(ChromaClient.java:97) ~[langchain4j-chroma-0.36.2.jar:na]
+	... 89 common frames omitted
+	Suppressed: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:8000
+		... 111 common frames omitted
+	Caused by: java.net.ConnectException: Connection refused
+		at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+		at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+		at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+		at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+		at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+		at java.base/java.net.Socket.connect(Socket.java:633)
+		at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+		at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+		... 110 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:554) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295) ~[okhttp-4.12.0.jar:na]
+	... 110 common frames omitted
 
-Description:
+2026-05-31T12:09:32.820+08:00  INFO 2685 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 2685 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-31T12:09:32.822+08:00  INFO 2685 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-31T12:09:33.329+08:00  INFO 2685 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-31T12:09:33.336+08:00  INFO 2685 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-31T12:09:33.336+08:00  INFO 2685 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-31T12:09:33.372+08:00  INFO 2685 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-31T12:09:33.372+08:00  INFO 2685 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 526 ms
+2026-05-31T12:09:33.560+08:00  WARN 2685 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'chatController' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/controller/ChatController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+2026-05-31T12:09:33.562+08:00  INFO 2685 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-05-31T12:09:33.570+08:00  INFO 2685 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
-Web server failed to start. Port 8080 was already in use.
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-05-31T12:09:33.578+08:00 ERROR 2685 --- [main] o.s.boot.SpringApplication               : Application run failed
 
-Action:
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'chatController' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/controller/ChatController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.ai.customerservice.AiCustomerServiceApplication.main(AiCustomerServiceApplication.java:10) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:485) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 75 common frames omitted
+Caused by: java.lang.RuntimeException: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at dev.langchain4j.store.embedding.chroma.ChromaClient.collection(ChromaClient.java:105) ~[langchain4j-chroma-0.36.2.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore.<init>(ChromaEmbeddingStore.java:61) ~[langchain4j-chroma-0.36.2.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore$Builder.build(ChromaEmbeddingStore.java:119) ~[langchain4j-chroma-0.36.2.jar:na]
+	at com.ai.customerservice.config.VectorStoreConfig.embeddingStore(VectorStoreConfig.java:27) ~[classes/:na]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$0.CGLIB$embeddingStore$0(<generated>) ~[classes/:na]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>) ~[classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258) ~[spring-core-6.1.14.jar:6.1.14]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348) ~[spring-context-6.1.14.jar:6.1.14]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$0.embeddingStore(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 76 common frames omitted
+Caused by: java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:8000
+	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:297) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaResponseLoggingInterceptor.intercept(ChromaResponseLoggingInterceptor.java:20) ~[langchain4j-chroma-0.36.2.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaRequestLoggingInterceptor.intercept(ChromaRequestLoggingInterceptor.java:21) ~[langchain4j-chroma-0.36.2.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154) ~[okhttp-4.12.0.jar:na]
+	at retrofit2.OkHttpCall.execute(OkHttpCall.java:204) ~[retrofit-2.9.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaClient.collection(ChromaClient.java:97) ~[langchain4j-chroma-0.36.2.jar:na]
+	... 89 common frames omitted
+	Suppressed: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:8000
+		... 111 common frames omitted
+	Caused by: java.net.ConnectException: Connection refused
+		at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+		at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+		at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+		at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+		at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+		at java.base/java.net.Socket.connect(Socket.java:633)
+		at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+		at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+		... 110 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:554) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:633) ~[na:na]
+	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295) ~[okhttp-4.12.0.jar:na]
+	... 110 common frames omitted
 
-Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+2026-05-31T12:10:30.185+08:00  INFO 2829 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 2829 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-31T12:10:30.187+08:00  INFO 2829 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-31T12:10:30.721+08:00  INFO 2829 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-31T12:10:30.729+08:00  INFO 2829 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-31T12:10:30.729+08:00  INFO 2829 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-31T12:10:30.769+08:00  INFO 2829 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-31T12:10:30.769+08:00  INFO 2829 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 561 ms
+2026-05-31T12:10:30.980+08:00  WARN 2829 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'chatController' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/controller/ChatController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+2026-05-31T12:10:30.981+08:00  INFO 2829 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-05-31T12:10:30.989+08:00  INFO 2829 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
-2026-05-22T17:13:47.081+08:00  INFO 73455 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 73455 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
-2026-05-22T17:13:47.083+08:00  INFO 73455 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
-2026-05-22T17:13:47.661+08:00  INFO 73455 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
-2026-05-22T17:13:47.671+08:00  INFO 73455 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-05-22T17:13:47.671+08:00  INFO 73455 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
-2026-05-22T17:13:47.709+08:00  INFO 73455 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-05-22T17:13:47.709+08:00  INFO 73455 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 576 ms
-2026-05-22T17:13:49.510+08:00  INFO 73455 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
-2026-05-22T17:13:49.593+08:00  INFO 73455 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
-2026-05-22T17:13:49.875+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
-2026-05-22T17:13:49.897+08:00  INFO 73455 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2026-05-22T17:13:50.028+08:00  INFO 73455 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
-2026-05-22T17:13:50.033+08:00  INFO 73455 --- [main] c.a.c.AiCustomerServiceApplication       : Started AiCustomerServiceApplication in 3.238 seconds (process running for 3.487)
-2026-05-22T17:13:50.034+08:00  INFO 73455 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Initializing knowledge base from: classpath:knowledge/
-2026-05-22T17:13:50.036+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: company-info.md
-2026-05-22T17:13:50.036+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: product-faq.txt
-2026-05-22T17:13:50.205+08:00  INFO 73455 --- [main] c.a.c.rag.DocumentProcessor              : Successfully ingested 2 documents into embedding store
-2026-05-22T17:13:50.205+08:00  INFO 73455 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Knowledge base initialized successfully. Loaded 2 documents.
-2026-05-22T17:14:16.750+08:00  INFO 73455 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-05-22T17:14:16.750+08:00  INFO 73455 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-05-22T17:14:16.755+08:00  INFO 73455 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
-2026-05-22T17:14:30.001+08:00  INFO 73455 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Chat request - sessionId: 63194473-630f-4d41-ba9e-48dd59e1267e, message: 你们的退款政策是什么？
-2026-05-22T17:14:30.020+08:00  INFO 73455 --- [http-nio-8081-exec-5] c.ai.customerservice.dal.ChatHistoryDao  : Inserted ChatHistory: ChatHistory{id=0, username='zhangzhenyu', sessionId='63194473-630f-4d41-ba9e-48dd59e1267e', complaintTime=2026-05-22T17:14:30.013238, complaintStatus='未闭环', transferredToHuman=false}
-2026-05-22T17:14:30.023+08:00  INFO 73455 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Created ChatHistory for session: 63194473-630f-4d41-ba9e-48dd59e1267e, username: zhangzhenyu
-2026-05-22T17:17:56.392+08:00  INFO 73455 --- [http-nio-8081-exec-10] c.ai.customerservice.dal.ChatHistoryDao  : Updated ChatHistory id=4 status to 已闭环
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-05-31T12:10:30.997+08:00 ERROR 2829 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'chatController' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/controller/ChatController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.ai.customerservice.AiCustomerServiceApplication.main(AiCustomerServiceApplication.java:10) ~[classes/:na]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'langchainChatService' defined in file [/Users/alden/code/ai-customer-service/target/classes/com/ai/customerservice/service/impl/LangchainChatService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customerServiceAgent' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'customerServiceAgent' parameter 2: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 33 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'contentRetriever' defined in class path resource [com/ai/customerservice/config/RagConfig.class]: Unsatisfied dependency expressed through method 'contentRetriever' parameter 0: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 47 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'embeddingStore' defined in class path resource [com/ai/customerservice/config/VectorStoreConfig.class]: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:485) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 61 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [dev.langchain4j.store.embedding.EmbeddingStore]: Factory method 'embeddingStore' threw exception with message: java.net.SocketException: Connection reset
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 75 common frames omitted
+Caused by: java.lang.RuntimeException: java.net.SocketException: Connection reset
+	at dev.langchain4j.store.embedding.chroma.ChromaClient.collection(ChromaClient.java:105) ~[langchain4j-chroma-0.36.2.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore.<init>(ChromaEmbeddingStore.java:61) ~[langchain4j-chroma-0.36.2.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaEmbeddingStore$Builder.build(ChromaEmbeddingStore.java:119) ~[langchain4j-chroma-0.36.2.jar:na]
+	at com.ai.customerservice.config.VectorStoreConfig.embeddingStore(VectorStoreConfig.java:27) ~[classes/:na]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$0.CGLIB$embeddingStore$0(<generated>) ~[classes/:na]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>) ~[classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258) ~[spring-core-6.1.14.jar:6.1.14]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:348) ~[spring-context-6.1.14.jar:6.1.14]
+	at com.ai.customerservice.config.VectorStoreConfig$$SpringCGLIB$$0.embeddingStore(<generated>) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146) ~[spring-beans-6.1.14.jar:6.1.14]
+	... 76 common frames omitted
+Caused by: java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:328) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:355) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:808) ~[na:na]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:966) ~[na:na]
+	at okio.InputStreamSource.read(JvmOkio.kt:93) ~[okio-jvm-3.6.0.jar:na]
+	at okio.AsyncTimeout$source$1.read(AsyncTimeout.kt:128) ~[okio-jvm-3.6.0.jar:na]
+	at okio.RealBufferedSource.indexOf(RealBufferedSource.kt:430) ~[okio-jvm-3.6.0.jar:na]
+	at okio.RealBufferedSource.readUtf8LineStrict(RealBufferedSource.kt:323) ~[okio-jvm-3.6.0.jar:na]
+	at okhttp3.internal.http1.HeadersReader.readLine(HeadersReader.kt:29) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http1.Http1ExchangeCodec.readResponseHeaders(Http1ExchangeCodec.kt:180) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.Exchange.readResponseHeaders(Exchange.kt:110) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.CallServerInterceptor.intercept(CallServerInterceptor.kt:93) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:34) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaResponseLoggingInterceptor.intercept(ChromaResponseLoggingInterceptor.java:20) ~[langchain4j-chroma-0.36.2.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaRequestLoggingInterceptor.intercept(ChromaRequestLoggingInterceptor.java:21) ~[langchain4j-chroma-0.36.2.jar:na]
+	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201) ~[okhttp-4.12.0.jar:na]
+	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154) ~[okhttp-4.12.0.jar:na]
+	at retrofit2.OkHttpCall.execute(OkHttpCall.java:204) ~[retrofit-2.9.0.jar:na]
+	at dev.langchain4j.store.embedding.chroma.ChromaClient.collection(ChromaClient.java:97) ~[langchain4j-chroma-0.36.2.jar:na]
+	... 89 common frames omitted
+	Suppressed: java.net.SocketException: Connection reset
+		... 118 common frames omitted
+
+2026-05-31T12:15:22.122+08:00  INFO 3054 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 3054 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-31T12:15:22.123+08:00  INFO 3054 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-31T12:15:22.650+08:00  INFO 3054 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-31T12:15:22.657+08:00  INFO 3054 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-31T12:15:22.658+08:00  INFO 3054 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-31T12:15:22.694+08:00  INFO 3054 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-31T12:15:22.694+08:00  INFO 3054 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 550 ms
+2026-05-31T12:15:28.958+08:00  INFO 3054 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
+2026-05-31T12:15:29.129+08:00  INFO 3054 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
+2026-05-31T12:15:29.730+08:00  INFO 3054 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
+2026-05-31T12:15:29.759+08:00  INFO 3054 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-05-31T12:15:29.898+08:00  INFO 3054 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-05-31T12:15:29.903+08:00  INFO 3054 --- [main] c.a.c.AiCustomerServiceApplication       : Started AiCustomerServiceApplication in 8.047 seconds (process running for 8.351)
+2026-05-31T12:15:29.905+08:00  INFO 3054 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Initializing knowledge base from: classpath:knowledge/
+2026-05-31T12:15:29.907+08:00  INFO 3054 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: company-info.md
+2026-05-31T12:15:29.907+08:00  INFO 3054 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: product-faq.txt
+2026-05-31T12:15:30.078+08:00  INFO 3054 --- [main] c.a.c.rag.DocumentProcessor              : Successfully ingested 2 documents into embedding store
+2026-05-31T12:15:30.078+08:00  INFO 3054 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Knowledge base initialized successfully. Loaded 2 documents.
+2026-05-31T12:32:49.290+08:00  INFO 3705 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 3705 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-31T12:32:49.292+08:00  INFO 3705 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-31T12:32:49.822+08:00  INFO 3705 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-31T12:32:49.829+08:00  INFO 3705 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-31T12:32:49.829+08:00  INFO 3705 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-31T12:32:49.866+08:00  INFO 3705 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-31T12:32:49.866+08:00  INFO 3705 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 550 ms
+2026-05-31T12:32:52.121+08:00  INFO 3705 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
+2026-05-31T12:32:52.209+08:00  INFO 3705 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
+2026-05-31T12:32:52.772+08:00  INFO 3705 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
+2026-05-31T12:32:52.800+08:00  INFO 3705 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-05-31T12:32:52.935+08:00  INFO 3705 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-05-31T12:32:52.940+08:00  INFO 3705 --- [main] c.a.c.AiCustomerServiceApplication       : Started AiCustomerServiceApplication in 3.906 seconds (process running for 4.218)
+2026-05-31T12:32:52.942+08:00  INFO 3705 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Initializing knowledge base from: classpath:knowledge/
+2026-05-31T12:32:52.943+08:00  INFO 3705 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: company-info.md
+2026-05-31T12:32:52.944+08:00  INFO 3705 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: product-faq.txt
+2026-05-31T12:32:53.104+08:00  INFO 3705 --- [main] c.a.c.rag.DocumentProcessor              : Successfully ingested 2 documents into embedding store
+2026-05-31T12:32:53.104+08:00  INFO 3705 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Knowledge base initialized successfully. Loaded 2 documents.
+2026-05-31T12:33:07.757+08:00  INFO 3705 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-31T12:33:07.757+08:00  INFO 3705 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-31T12:33:07.759+08:00  INFO 3705 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-05-31T12:33:29.742+08:00  INFO 3705 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Chat request - sessionId: 402c5950-2c47-4e4a-a2ed-832c615a9f5f, message: 我的订单什么时候发货？
+2026-05-31T12:33:29.765+08:00  INFO 3705 --- [http-nio-8081-exec-5] c.ai.customerservice.dal.ChatHistoryDao  : Inserted ChatHistory: ChatHistory{id=0, username='zhangzhenyu', sessionId='402c5950-2c47-4e4a-a2ed-832c615a9f5f', complaintTime=2026-05-31T12:33:29.757354, complaintStatus='未闭环', transferredToHuman=false}
+2026-05-31T12:33:29.768+08:00  INFO 3705 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Created ChatHistory for session: 402c5950-2c47-4e4a-a2ed-832c615a9f5f, username: zhangzhenyu
+2026-05-31T12:34:30.061+08:00  INFO 3784 --- [main] c.a.c.AiCustomerServiceApplication       : Starting AiCustomerServiceApplication using Java 17.0.12 with PID 3784 (/Users/alden/code/ai-customer-service/target/classes started by alden in /Users/alden/code/ai-customer-service)
+2026-05-31T12:34:30.063+08:00  INFO 3784 --- [main] c.a.c.AiCustomerServiceApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-05-31T12:34:30.620+08:00  INFO 3784 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2026-05-31T12:34:30.629+08:00  INFO 3784 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-31T12:34:30.629+08:00  INFO 3784 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-05-31T12:34:30.667+08:00  INFO 3784 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-31T12:34:30.667+08:00  INFO 3784 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 577 ms
+2026-05-31T12:34:36.753+08:00  INFO 3784 --- [main] ai.djl.util.Platform                     : Found matching platform from: jar:file:/Users/alden/.m2/repository/ai/djl/huggingface/tokenizers/0.30.0/tokenizers-0.30.0.jar!/native/lib/tokenizers.properties
+2026-05-31T12:34:36.836+08:00  INFO 3784 --- [main] c.a.c.service.tool.OrderQueryService     : Loaded 10 orders from orders.json
+2026-05-31T12:34:37.209+08:00  INFO 3784 --- [main] c.a.c.rag.DocumentProcessor              : 当前使用的 EmbeddingStore 实现类: ChromaEmbeddingStore
+2026-05-31T12:34:37.239+08:00  INFO 3784 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-05-31T12:34:37.390+08:00  INFO 3784 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2026-05-31T12:34:37.396+08:00  INFO 3784 --- [main] c.a.c.AiCustomerServiceApplication       : Started AiCustomerServiceApplication in 7.589 seconds (process running for 7.813)
+2026-05-31T12:34:37.398+08:00  INFO 3784 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Initializing knowledge base from: classpath:knowledge/
+2026-05-31T12:34:37.400+08:00  INFO 3784 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: company-info.md
+2026-05-31T12:34:37.400+08:00  INFO 3784 --- [main] c.a.c.rag.DocumentProcessor              : Loaded document: product-faq.txt
+2026-05-31T12:34:37.561+08:00  INFO 3784 --- [main] c.a.c.rag.DocumentProcessor              : Successfully ingested 2 documents into embedding store
+2026-05-31T12:34:37.561+08:00  INFO 3784 --- [main] c.a.c.rag.KnowledgeBaseInitializer       : Knowledge base initialized successfully. Loaded 2 documents.
+2026-05-31T12:34:46.930+08:00  INFO 3784 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-31T12:34:46.931+08:00  INFO 3784 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-31T12:34:46.935+08:00  INFO 3784 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-05-31T12:35:11.088+08:00  INFO 3784 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Chat request - sessionId: a4c8a386-8c53-4875-bf43-84d0da657aae, message: 我的订单什么时候发货？
+2026-05-31T12:35:11.109+08:00  INFO 3784 --- [http-nio-8081-exec-5] c.ai.customerservice.dal.ChatHistoryDao  : Inserted ChatHistory: ChatHistory{id=0, username='zhangzhenyu', sessionId='a4c8a386-8c53-4875-bf43-84d0da657aae', complaintTime=2026-05-31T12:35:11.102497, complaintStatus='未闭环', transferredToHuman=false}
+2026-05-31T12:35:11.112+08:00  INFO 3784 --- [http-nio-8081-exec-5] c.a.c.service.impl.LangchainChatService  : Created ChatHistory for session: a4c8a386-8c53-4875-bf43-84d0da657aae, username: zhangzhenyu
