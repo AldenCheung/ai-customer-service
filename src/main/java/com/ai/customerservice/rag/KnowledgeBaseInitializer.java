@@ -14,7 +14,7 @@ public class KnowledgeBaseInitializer implements ApplicationRunner {
 
     private final DocumentProcessor documentProcessor;
 
-    @Value("${app.knowledge.path:classpath:knowledge/}")
+    @Value("${app.knowledge.path:file:knowledge/}")
     private String knowledgePath;
 
     public KnowledgeBaseInitializer(DocumentProcessor documentProcessor) {

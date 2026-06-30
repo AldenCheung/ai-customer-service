@@ -1,7 +1,9 @@
 package com.ai.customerservice.service.impl;
 
+import com.ai.customerservice.config.AuthProperties;
 import com.ai.customerservice.dal.ChatHistory;
 import com.ai.customerservice.dal.ChatHistoryDao;
+import com.ai.customerservice.dal.ChatMessageDao;
 import com.ai.customerservice.model.ChatRequest;
 import com.ai.customerservice.model.ChatResponse;
 import com.ai.customerservice.service.AuthService;
@@ -27,17 +29,26 @@ public class LangchainChatService implements ChatService {
 
     private final CustomerServiceAgent customerServiceAgent;
     private final ChatHistoryDao chatHistoryDao;
+    private final ChatMessageDao chatMessageDao;
     private final AuthService authService;
+    private final AuthProperties authProperties;
 
     @Value("${app.chat.sse-timeout:300000}")
     private long sseTimeout;
 
+    @Value("${app.chat.max-tool-calls:10}")
+    private int maxToolCalls;
+
     public LangchainChatService(CustomerServiceAgent customerServiceAgent,
                                 ChatHistoryDao chatHistoryDao,
-                                AuthService authService) {
+                                ChatMessageDao chatMessageDao,
+                                AuthService authService,
+                                AuthProperties authProperties) {
         this.customerServiceAgent = customerServiceAgent;
         this.chatHistoryDao = chatHistoryDao;
+        this.chatMessageDao = chatMessageDao;
         this.authService = authService;
+        this.authProperties = authProperties;
     }
 
     @Override
@@ -47,7 +58,17 @@ public class LangchainChatService implements ChatService {
 
         ensureChatHistory(sessionId);
 
+        String toolLimitMsg = checkToolCallLimit(sessionId);
+        if (toolLimitMsg != null) {
+            ChatResponse response = new ChatResponse();
+            response.setAnswer(toolLimitMsg);
+            response.setSessionId(sessionId);
+            response.setTimestamp(LocalDateTime.now());
+            return response;
+        }
+
         String answer = customerServiceAgent.chat(sessionId, request.getMessage());
+        log.info("Chat answer - sessionId: {}, message: {}", sessionId, answer);
 
         checkTransferredToHuman(sessionId, answer);
 
@@ -66,6 +87,18 @@ public class LangchainChatService implements ChatService {
         ensureChatHistory(sessionId);
 
         SseEmitter emitter = new SseEmitter(sseTimeout);
+
+        String toolLimitMsg = checkToolCallLimit(sessionId);
+        if (toolLimitMsg != null) {
+            try {
+                emitter.send(SseEmitter.event().data(toolLimitMsg));
+                emitter.send(SseEmitter.event().data("[DONE]"));
+                emitter.complete();
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+            }
+            return emitter;
+        }
 
         emitter.onTimeout(() -> log.warn("SSE connection timed out for session: {}", sessionId));
         emitter.onError(e -> log.error("SSE error for session: {}", sessionId, e));
@@ -106,7 +139,7 @@ public class LangchainChatService implements ChatService {
         }
         String username = resolveCurrentUsername();
         ChatHistory history = new ChatHistory();
-        history.setUsername(username != null ? username : "anonymous");
+        history.setUsername(username != null ? username : authProperties.getDefaultUsername());
         history.setSessionId(sessionId);
         history.setComplaintTime(LocalDateTime.now());
         history.setComplaintStatus("未闭环");
@@ -124,6 +157,15 @@ public class LangchainChatService implements ChatService {
                 }
             });
         }
+    }
+
+    private String checkToolCallLimit(String sessionId) {
+        int toolCallCount = chatMessageDao.countToolCallsBySessionId(sessionId);
+        if (toolCallCount >= maxToolCalls) {
+            log.warn("Session {} reached max tool call limit: {}", sessionId, maxToolCalls);
+            return "抱歉，当前会话的工具调用次数已达上限，建议您联系人工客服（电话：666666）获取进一步帮助。";
+        }
+        return null;
     }
 
     private String resolveCurrentUsername() {

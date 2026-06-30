@@ -1,5 +1,6 @@
 package com.ai.customerservice.config;
 
+import com.ai.customerservice.rag.SqliteChatMemoryStore;
 import com.ai.customerservice.service.CustomerServiceAgent;
 import com.ai.customerservice.service.tool.CalculatorService;
 import com.ai.customerservice.service.tool.OrderQueryService;
@@ -68,14 +69,19 @@ public class RagConfig {
             ChatLanguageModel chatLanguageModel,
             StreamingChatLanguageModel streamingChatLanguageModel,
             EmbeddingStoreContentRetriever contentRetriever,
-            CalculatorService calculatorService, OrderQueryService orderQueryService) {
+            CalculatorService calculatorService, OrderQueryService orderQueryService,
+            SqliteChatMemoryStore chatMemoryStore) {
         return AiServices.builder(CustomerServiceAgent.class)
                 .chatLanguageModel(chatLanguageModel)
                 .streamingChatLanguageModel(streamingChatLanguageModel)
                 .contentRetriever(contentRetriever)
                 .tools(calculatorService, orderQueryService)
                 .chatMemoryProvider(memoryId ->
-                        MessageWindowChatMemory.withMaxMessages(memoryMaxMessages))
+                        MessageWindowChatMemory.builder()
+                                .id(memoryId)
+                                .maxMessages(memoryMaxMessages)
+                                .chatMemoryStore(chatMemoryStore)
+                                .build())
                 .build();
     }
 }

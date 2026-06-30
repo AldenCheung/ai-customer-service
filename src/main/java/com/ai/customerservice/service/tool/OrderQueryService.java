@@ -63,6 +63,7 @@ public class OrderQueryService {
                     .append("  ¥").append(item.get("unitPrice")).append("\n");
         }
         sb.append("总金额: ¥").append(order.get("totalAmount"));
+        log.info("Tool called response: queryOrderStatus({})", sb.toString());
         return sb.toString();
     }
 

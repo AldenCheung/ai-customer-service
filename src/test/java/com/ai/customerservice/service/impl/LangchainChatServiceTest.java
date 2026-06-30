@@ -1,7 +1,9 @@
 package com.ai.customerservice.service.impl;
 
+import com.ai.customerservice.config.AuthProperties;
 import com.ai.customerservice.dal.ChatHistory;
 import com.ai.customerservice.dal.ChatHistoryDao;
+import com.ai.customerservice.dal.ChatMessageDao;
 import com.ai.customerservice.model.ChatRequest;
 import com.ai.customerservice.model.ChatResponse;
 import com.ai.customerservice.service.AuthService;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Optional;
@@ -29,13 +32,21 @@ class LangchainChatServiceTest {
     private ChatHistoryDao chatHistoryDao;
 
     @Mock
+    private ChatMessageDao chatMessageDao;
+
+    @Mock
     private AuthService authService;
+
+    private AuthProperties authProperties;
 
     private LangchainChatService chatService;
 
     @BeforeEach
     void setUp() {
-        chatService = new LangchainChatService(customerServiceAgent, chatHistoryDao, authService);
+        authProperties = new AuthProperties();
+        when(chatMessageDao.countToolCallsBySessionId(anyString())).thenReturn(0);
+        chatService = new LangchainChatService(customerServiceAgent, chatHistoryDao, chatMessageDao, authService, authProperties);
+        ReflectionTestUtils.setField(chatService, "maxToolCalls", 10);
     }
 
     @Test

@@ -44,6 +44,15 @@ public class DataSourceConfig {
                 + "transferred_to_human INTEGER NOT NULL DEFAULT 0 CHECK (transferred_to_human IN (0, 1))"
                 + ")");
 
+        jdbc.execute("CREATE TABLE IF NOT EXISTS chat_message ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "session_id TEXT NOT NULL, "
+                + "role TEXT NOT NULL, "
+                + "content TEXT NOT NULL, "
+                + "created_at DATETIME NOT NULL DEFAULT (datetime('now', 'localtime'))"
+                + ")");
+        jdbc.execute("CREATE INDEX IF NOT EXISTS idx_chat_message_session_id ON chat_message(session_id)");
+
         return dataSource;
     }
 

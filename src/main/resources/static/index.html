@@ -115,14 +115,16 @@
         .header-avatar {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
             flex-shrink: 0;
             box-shadow: 0 2px 12px rgba(102, 126, 234, 0.35);
+            overflow: hidden;
+        }
+
+        .header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .header-info {
@@ -298,21 +300,26 @@
             width: 36px;
             height: 36px;
             border-radius: 12px;
+            flex-shrink: 0;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
+        }
+
+        .message .msg-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .message.ai .msg-avatar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .message.user .msg-avatar {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            box-shadow: 0 2px 8px rgba(67, 233, 123, 0.3);
         }
 
         .message .bubble {
@@ -597,7 +604,6 @@
                 width: 38px;
                 height: 38px;
                 border-radius: 12px;
-                font-size: 18px;
             }
         }
     </style>
@@ -610,7 +616,7 @@
     <div class="chat-container">
         <div class="chat-header">
             <div class="header-left">
-                <div class="header-avatar">&#129302;</div>
+                <div class="header-avatar"><img src="/avatar.jpeg" alt="客服"></div>
                 <div class="header-info">
                     <div class="header-title">智慧商城客服</div>
                     <div class="header-subtitle">AI 智能助手 · 随时为您服务</div>
@@ -620,6 +626,10 @@
                 <a href="/history.html" class="header-icon-btn" style="text-decoration:none;">
                     &#128203;
                     <span class="tooltip">会话历史</span>
+                </a>
+                <a href="/knowledge.html" class="header-icon-btn" style="text-decoration:none;">
+                    &#128218;
+                    <span class="tooltip">知识库</span>
                 </a>
                 <select id="modelSelect" class="model-select">
                     <option value="glm-4-flash">GLM</option>
@@ -637,29 +647,6 @@
         </div>
 
         <div class="chat-messages" id="chatMessages">
-            <div class="welcome-message">
-                <div class="welcome-icon">&#129302;</div>
-                <h2>您好，欢迎来到智慧商城！</h2>
-                <p>我是您的智能客服助手，有什么可以帮您的吗？</p>
-                <div class="quick-actions">
-                    <button class="quick-action-btn" onclick="sendQuickMessage('你们的退款政策是什么？')">
-                        <span class="qa-icon">&#128176;</span>
-                        <span>退款政策</span>
-                    </button>
-                    <button class="quick-action-btn" onclick="sendQuickMessage('配送需要多长时间？')">
-                        <span class="qa-icon">&#128666;</span>
-                        <span>配送时间</span>
-                    </button>
-                    <button class="quick-action-btn" onclick="sendQuickMessage('如何成为会员？')">
-                        <span class="qa-icon">&#127942;</span>
-                        <span>会员权益</span>
-                    </button>
-                    <button class="quick-action-btn" onclick="sendQuickMessage('如何联系人工客服？')">
-                        <span class="qa-icon">&#128222;</span>
-                        <span>联系客服</span>
-                    </button>
-                </div>
-            </div>
         </div>
 
         <div class="chat-input-area">
@@ -672,6 +659,20 @@
     <script>
         const sessionId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
         let isStreaming = false;
+
+        // 页面加载时主动打招呼
+        async function loadGreeting() {
+            try {
+                const response = await fetch('/api/hello');
+                if (response.ok) {
+                    const data = await response.json();
+                    addMessage(data.greeting, 'ai');
+                }
+            } catch (e) {
+                console.error('Failed to load greeting', e);
+            }
+        }
+        loadGreeting();
 
         async function logout() {
             try {
@@ -764,9 +765,9 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
 
-            const avatarText = type === 'ai' ? '\u{1F916}' : '\u{1F464}';
+            const avatarContent = type === 'ai' ? '<img src="/avatar.jpeg" alt="客服">' : '<svg viewBox="0 0 24 24" width="22" height="22" fill="white"><circle cx="12" cy="8" r="4"/><path d="M12 14c-5 0-8 2.5-8 5v1h16v-1c0-2.5-3-5-8-5z"/></svg>';
             messageDiv.innerHTML = `
-                <div class="msg-avatar">${avatarText}</div>
+                <div class="msg-avatar">${avatarContent}</div>
                 <div class="bubble">${escapeHtml(content)}</div>
             `;
 
@@ -783,7 +784,7 @@
             messageDiv.className = 'message ai';
             messageDiv.id = 'typingMessage';
             messageDiv.innerHTML = `
-                <div class="msg-avatar">\u{1F916}</div>
+                <div class="msg-avatar"><img src="/avatar.jpeg" alt="客服"></div>
                 <div class="bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>
             `;
             messagesContainer.appendChild(messageDiv);

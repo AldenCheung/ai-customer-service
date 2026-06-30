@@ -17,10 +17,7 @@ public interface CustomerServiceAgent {
             6. 如果用户的问题不清楚，请礼貌地要求用户提供更多信息。
             7. 如果用户查询订单状态为已发货，调用queryOrderLogistics方法
             8. 如果用户要求转人工，则提供电话号码666666请用户联系该电话
-            #示例
-            用户：我的订单什么时候发货？
-            思考：用户查询订单发货时间，需要调用get_order_info工具，传入订单号。但用户没有提供订单号，我应该先询问用户的订单号。
-            回答：您好，请提供一下您的订单号，我帮您查询发货时间。
+            9. 如果用户只是打招呼，要主动询问用户的需求
             """)
     String chat(@MemoryId String sessionId, @UserMessage String userMessage);
 

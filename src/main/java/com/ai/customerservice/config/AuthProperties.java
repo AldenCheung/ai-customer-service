@@ -10,7 +10,25 @@ import java.util.List;
 @ConfigurationProperties(prefix = "app.auth")
 public class AuthProperties {
 
+    private boolean enabled = true;
+    private String defaultUsername = "anonymous";
     private List<User> users = new ArrayList<>();
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getDefaultUsername() {
+        return defaultUsername;
+    }
+
+    public void setDefaultUsername(String defaultUsername) {
+        this.defaultUsername = defaultUsername;
+    }
 
     public List<User> getUsers() {
         return users;

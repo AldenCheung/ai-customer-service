@@ -17,6 +17,8 @@ app:
   sqlite:
     db-path: ${SQLITE_DB_PATH:./data/customer_service.db}
   auth:
+    enabled: true
+    default-username: 游客
     users:
       - username: admin
         password: admin123
@@ -25,7 +27,7 @@ app:
       - username: zhangzhenyu
         password: 123456
   knowledge:
-    path: classpath:knowledge/
+    path: file:knowledge/
   rag:
     max-results: 3
     min-score: 0.5
@@ -37,6 +39,7 @@ app:
   chat:
     memory-max-messages: 20
     sse-timeout: 300000
+    max-tool-calls: 10
 
 logging:
   file:

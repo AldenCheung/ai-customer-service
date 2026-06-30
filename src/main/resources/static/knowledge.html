@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识库 - 智慧商城智能客服</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: orbFloat 10s ease-in-out infinite;
+        }
+
+        .bg-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #667eea, transparent 70%);
+            top: -150px;
+            right: -100px;
+        }
+
+        .bg-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #764ba2, transparent 70%);
+            bottom: -120px;
+            left: -80px;
+            animation-delay: -4s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(25px, -15px) scale(1.03); }
+            66% { transform: translate(-15px, 10px) scale(0.97); }
+        }
+
+        .page-container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px 20px;
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .page-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .page-header-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 2px 12px rgba(102, 126, 234, 0.35);
+        }
+
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 2px;
+        }
+
+        .back-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        tbody td {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .file-icon {
+            margin-right: 8px;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #a78bfa;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .file-name:hover {
+            color: #c4b5fd;
+            text-decoration: underline;
+        }
+
+        .file-type-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(102, 126, 234, 0.12);
+            color: #a78bfa;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        .table-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        .mini-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #a78bfa;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .summary-bar {
+            padding: 14px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .reload-btn {
+            padding: 7px 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reload-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.35);
+        }
+
+        .reload-btn:active {
+            transform: scale(0.97);
+        }
+
+        .reload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .reload-msg {
+            font-size: 13px;
+            margin-left: 10px;
+        }
+
+        .reload-msg.success { color: #81c784; }
+        .reload-msg.error { color: #ef9a9a; }
+
+        @media (max-width: 640px) {
+            .page-container {
+                padding: 16px 12px;
+            }
+
+            thead th, tbody td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .page-header h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+
+    <div class="page-container">
+        <div class="page-header">
+            <div class="page-header-left">
+                <div class="page-header-icon">&#128218;</div>
+                <div>
+                    <h1>知识库</h1>
+                    <p>查看知识库中的文件列表</p>
+                </div>
+            </div>
+            <a href="/index.html" class="back-btn">&#8592; 返回客服</a>
+        </div>
+
+        <div class="glass-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>类型</th>
+                            <th>大小</th>
+                            <th>修改时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="summaryBar" class="summary-bar">
+                <span id="summaryText"></span>
+                <div style="display:flex;align-items:center;">
+                    <button class="reload-btn" id="reloadBtn" onclick="reloadKnowledge()">&#128260; 重新初始化</button>
+                    <span id="reloadMsg" class="reload-msg"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getFileIcon(name) {
+            const ext = name.split('.').pop().toLowerCase();
+            const icons = { md: '&#128196;', txt: '&#128196;', pdf: '&#128196;', json: '&#128196;', csv: '&#128196;' };
+            return icons[ext] || '&#128196;';
+        }
+
+        function getFileType(name) {
+            const ext = name.split('.').pop().toLowerCase();
+            const types = { md: 'Markdown', txt: '文本', pdf: 'PDF', json: 'JSON', csv: 'CSV' };
+            return types[ext] || ext.toUpperCase();
+        }
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function formatTime(millis) {
+            if (!millis) return '-';
+            const d = new Date(millis);
+            const pad = n => String(n).padStart(2, '0');
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function loadData() {
+            const tbody = document.getElementById('tableBody');
+            const summaryBar = document.getElementById('summaryBar');
+
+            tbody.innerHTML = `
+                <tr><td colspan="4">
+                    <div class="table-loading">
+                        <div class="mini-spinner"></div>
+                        加载中...
+                    </div>
+                </td></tr>
+            `;
+
+            try {
+                const resp = await fetch('/api/knowledge');
+                if (resp.status === 401) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                const files = await resp.json();
+
+                if (!files || files.length === 0) {
+                    tbody.innerHTML = `
+                        <tr><td colspan="4">
+                            <div class="empty-state">
+                                <div class="empty-icon">&#128218;</div>
+                                <p>知识库暂无文件</p>
+                            </div>
+                        </td></tr>
+                    `;
+                    summaryBar.textContent = '';
+                    return;
+                }
+
+                tbody.innerHTML = files.map(f => `
+                    <tr>
+                        <td>
+                            <span class="file-icon">${getFileIcon(f.name)}</span>
+                            <a class="file-name" href="/api/knowledge/${encodeURIComponent(f.name)}" target="_blank">${escapeHtml(f.name)}</a>
+                        </td>
+                        <td><span class="file-type-badge">${getFileType(f.name)}</span></td>
+                        <td>${formatSize(f.size)}</td>
+                        <td>${formatTime(f.lastModified)}</td>
+                    </tr>
+                `).join('');
+
+                const totalSize = files.reduce((sum, f) => sum + f.size, 0);
+                document.getElementById('summaryText').textContent = `共 ${files.length} 个文件，总大小 ${formatSize(totalSize)}`;
+
+            } catch (e) {
+                tbody.innerHTML = `
+                    <tr><td colspan="4">
+                        <div class="empty-state"><p>网络错误，请稍后重试</p></div>
+                    </td></tr>
+                `;
+            }
+        }
+
+        async function reloadKnowledge() {
+            const btn = document.getElementById('reloadBtn');
+            const msg = document.getElementById('reloadMsg');
+            btn.disabled = true;
+            msg.className = 'reload-msg';
+            msg.textContent = '初始化中...';
+
+            try {
+                const resp = await fetch('/api/knowledge/reload', { method: 'POST' });
+                const data = await resp.json();
+                if (data.success) {
+                    msg.className = 'reload-msg success';
+                    msg.textContent = `成功，已加载 ${data.count} 个文档`;
+                } else {
+                    msg.className = 'reload-msg error';
+                    msg.textContent = '失败：' + (data.message || '未知错误');
+                }
+            } catch (e) {
+                msg.className = 'reload-msg error';
+                msg.textContent = '请求失败';
+            } finally {
+                btn.disabled = false;
+                setTimeout(() => { msg.textContent = ''; }, 5000);
+            }
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

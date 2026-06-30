@@ -34,7 +34,7 @@ public class DocumentProcessor {
     private int chunkOverlap;
 
     public DocumentProcessor(EmbeddingStore<TextSegment> embeddingStore,
-                             EmbeddingModel embeddingModel) {
+                             EmbeddingModel embeddingModel) {https://web.conference.ccb.com/app/?customizedkey=ccbbank
         this.embeddingStore = embeddingStore;
         this.embeddingModel = embeddingModel;
         log.info("当前使用的 EmbeddingStore 实现类: {}", embeddingStore.getClass().getSimpleName());

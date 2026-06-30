@@ -1,5 +1,6 @@
 package com.ai.customerservice.interceptor;
 
+import com.ai.customerservice.config.AuthProperties;
 import com.ai.customerservice.service.AuthService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,13 +14,19 @@ public class AuthInterceptor implements HandlerInterceptor {
     private static final String LOGIN_PAGE = "/login.html";
 
     private final AuthService authService;
+    private final AuthProperties authProperties;
 
-    public AuthInterceptor(AuthService authService) {
+    public AuthInterceptor(AuthService authService, AuthProperties authProperties) {
         this.authService = authService;
+        this.authProperties = authProperties;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!authProperties.isEnabled()) {
+            return true;
+        }
+
         String token = extractToken(request);
         if (token != null && authService.resolveUsername(token).isPresent()) {
             return true;
